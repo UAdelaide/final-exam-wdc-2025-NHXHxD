@@ -92,7 +92,7 @@
     },
     async mounted() {
       try {
-        // 1) grab the list of dogs
+        // grab the list of dogs
         const res  = await fetch('/api/dogs');
         const list = await res.json();
 
@@ -103,13 +103,12 @@
               const json = await r.json();
               dog.photo = json.message;
             } catch {
-              dog.photo = '';  // fallback if fetch fails
+              dog.photo = '';
             }
             return dog;
           })
         );
 
-        // 3) finally expose to Vue so the template re-renders
         this.dogs = withPhotos;
       } catch (e) {
         console.error('Failed to load dogs or photos:', e);
