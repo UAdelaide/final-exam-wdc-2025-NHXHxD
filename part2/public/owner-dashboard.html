@@ -99,7 +99,7 @@
           if (!user) throw new Error('Not logged in');
           return user;
         }
-
+        // fetch owner's dogs
         async function loadDogs() {
           try {
             const { id: ownerId } = await getCurrentUser();
