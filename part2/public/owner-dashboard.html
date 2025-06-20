@@ -91,6 +91,7 @@
 
         // fetch the owner’s dogs
         async function loadDogs() {
+          // temporarily set as 3
           const ownerId = 3;
           try {
             const res = await fetch(`/api/owners/${ownerId}/dogs`);
@@ -99,6 +100,7 @@
             console.error('Failed to load dogs', e);
           }
         }
+        
         async function loadWalks() {
           try {
             const res = await fetch('/api/walks');
