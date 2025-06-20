@@ -30,9 +30,10 @@ router.post('/register', async (req, res) => {
 
 router.get('/me', (req, res) => {
   if (!req.session.user) {
-    return res.status(401).json({ error: 'Not logged in' });
+    return res.json({ user: null });
   }
-  res.json(req.session.user);
+  // echo back exactly what we stored at login
+  res.json({ user: req.session.user });
 });
 
 // POST /api/users/login
