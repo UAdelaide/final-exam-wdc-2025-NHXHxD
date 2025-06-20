@@ -6,6 +6,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dogWalkRouter = require('./routes/dogWalk');
+var db = require('../db');
 
 var app = express();
 
@@ -44,9 +45,9 @@ async function addData() {
       (4,3,'2025-06-11 18:00:00',30,'City Center Park','cancelled'),
       (5,5,'2025-06-12 10:15:00',20,'Suburban Greenway','open');
     `);
-    console.log('✅ Seeded test data');
+    console.log('✅ Added test data');
   } catch (err) {
-    console.error('❌ Seeding failed:', err);
+    console.error('❌ Added failed:', err);
   }
 }
 
