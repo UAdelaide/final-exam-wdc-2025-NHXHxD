@@ -35,7 +35,7 @@
         };
       }
     }).mount('#app');
-      document.getElementById('loginForm').addEventListener('submit', async e => {
+  document.getElementById('loginForm').addEventListener('submit', async e => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
@@ -52,7 +52,9 @@
       return;
     }
 
-    
+    // on success, redirect to the dashboard the server specifies
+    window.location.href = result.redirect;
+  });
   </script>
 
 
