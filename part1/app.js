@@ -51,7 +51,20 @@ async function addData() {
   }
 }
 
-app.use('/api', dogWalkRouter);
+// GET /api/dogs
+app.get('/api/dogs', async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT d.name AS dog_name, d.size, u.username AS owner_username
+      FROM Dogs d
+      JOIN Users u ON d.owner_id = u.user_id
+    `);
+    res.json(rows);
+  } catch (err) {
+    console.error('[/api/dogs] error:', err);
+    res.status(500).json({ error: 'Failed to fetch dogs' });
+  }
+});
 
 
 app.listen(8080, async () => {
