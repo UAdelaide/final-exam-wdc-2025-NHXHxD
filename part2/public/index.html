@@ -94,7 +94,6 @@ Vue.createApp({
       const res = await fetch('/api/dogs');
       const list = await res.json();
 
-      // 2) for each dog, fetch a random photo and attach it:
       await Promise.all(
         list.map(async d => {
           try {
@@ -102,7 +101,7 @@ Vue.createApp({
             const { message: url } = await r.json();
             d.photo = url;
           } catch {
-            d.photo = '';  // in case of failure
+            d.photo = '';
           }
         })
       );
