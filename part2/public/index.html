@@ -52,7 +52,25 @@
     </table>
     <p v-if="dogs.length === 0">No dogs found.</p>
   </div>
+  <script>
+    const { createApp } = Vue;
 
+    createApp({
+      data() {
+        return {
+          dogs: []
+        };
+      },
+      async mounted() {
+        try {
+          const res = await fetch('/api/dogs');
+          this.dogs = await res.json();
+        } catch (e) {
+          console.error('Failed to load all dogs:', e);
+        }
+      }
+    }).mount('#dogsApp');
+  </script>
   <script>
     const { createApp } = Vue;
     createApp({
@@ -84,25 +102,7 @@
     });
   </script>
 
-<script>
-  const { createApp } = Vue;
 
-  createApp({
-    data() {
-      return {
-        dogs: []
-      };
-    },
-    async mounted() {
-      try {
-        const res = await fetch('/api/dogs');
-        this.dogs = await res.json();
-      } catch (e) {
-        console.error('Failed to load all dogs:', e);
-      }
-    }
-  }).mount('#dogsApp');
-</script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
