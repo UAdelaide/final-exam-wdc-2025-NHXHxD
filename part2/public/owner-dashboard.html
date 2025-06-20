@@ -90,6 +90,15 @@
         const error = ref('');
 
         // fetch the owner’s dogs
+       async function loadDogs() {
++         const ownerId = /* insert your current user’s ID here, e.g. from a global JS var */ 1;
++         try {
++           const res = await fetch(`/api/owners/${ownerId}/dogs`);
++           dogs.value = await res.json();
++         } catch (e) {
++           console.error('Failed to load dogs', e);
++         }
++       }
         async function loadWalks() {
           try {
             const res = await fetch('/api/walks');
