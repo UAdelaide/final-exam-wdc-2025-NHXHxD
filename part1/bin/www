@@ -91,6 +91,6 @@ async function onListening() {
     await addData();
     debug('Test data added');
   } catch (err) {
-    debug('❌ Failed to seed test data:', err);
+    debug('Failed to add test data:', err);
   }
 }
