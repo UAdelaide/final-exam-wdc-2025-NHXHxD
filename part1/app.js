@@ -53,4 +53,9 @@ async function addData() {
 
 app.use('/api', dogWalkRouter);
 
+
+app.listen(PORT, async () => {
+  await addData();
+});
+
 module.exports = app;
