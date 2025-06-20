@@ -4,10 +4,27 @@
   <meta charset="UTF-8">
   <title>Dog of the Day</title>
   <style>
-    /* Add large margin to separate text from image */
+    /* Position elements to force large movement */
+    #app {
+      position: relative;
+      width: 600px;
+      height: 800px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+    }
     #app img {
       display: block;
-      margin-bottom: 200px;
+      margin: 20px auto;
+    }
+    #name {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+    }
+    #size {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
     }
   </style>
 </head>
@@ -15,8 +32,8 @@
   <div id="app">
     <h1>Dog of the Day</h1>
     <img :src="imageUrl" :alt="'Picture of ' + name" width="300" />
-    <p>Name: {{ name }}</p>
-    <p>Size: {{ size }}</p>
+    <p id="name">Name: {{ name }}</p>
+    <p id="size">Size: {{ size }}</p>
   </div>
 
   <script src="https://unpkg.com/vue@3"></script>
