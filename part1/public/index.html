@@ -49,7 +49,7 @@
       methods: {
         async fetchDog() {
           try {
-            const res = await fetch('https://dog.ceo/api/breeds/image/random');
+            const res = await fetch('https://dog.cseo/api/breeds/image/random');
             const data = await res.json();
             this.imageUrl = data.message;
           } catch (e) {
