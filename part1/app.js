@@ -68,7 +68,7 @@ app.get('/api/dogs', async (req, res) => {
 // GET /api/walkrequests/open
 
 
-app.listen(8080, async () => {
+app.listen(3000, async () => {
   await addData();
 });
 
