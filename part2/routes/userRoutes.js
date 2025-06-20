@@ -55,4 +55,13 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+// POST logout
+router.post('/logout', function(req, res, next) {
+
+    delete req.session.user;
+    res.send();
+
+});
+
 module.exports = router;
