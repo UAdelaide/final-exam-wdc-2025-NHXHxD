@@ -107,5 +107,8 @@ app.get('/api/walkers/summary', async (req, res) => {
   }
 });
 
+app.listen(3000, async () => {
+  await addData();
+
 
 module.exports = app;
