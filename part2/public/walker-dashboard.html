@@ -59,7 +59,7 @@
           }
         }
 
-        // fetch session info
+        // NEW: fetch session info
         async function getCurrentUser() {
           const res = await fetch('/api/users/me');
           const { user } = await res.json();
