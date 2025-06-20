@@ -54,7 +54,7 @@ async function addData() {
 app.use('/api', dogWalkRouter);
 
 
-app.listen(PORT, async () => {
+app.listen(8080, async () => {
   await addData();
 });
 
