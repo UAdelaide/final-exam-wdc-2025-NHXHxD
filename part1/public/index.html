@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Express</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+  <meta charset="UTF-8">
+  <title>Dog of the Day</title>
 </head>
-
 <body>
-    <h1>Express</h1>
-    <p>Welcome to Express</p>
+  <div id="app">
+    <h1>Dog of the Day</h1>
+    <img :src="imageUrl" :alt="'Picture of ' + name" width="300" />
+    <p>Name: {{ name }}</p>
+    <p>Breed: {{ breed }}</p>
+    <button @click="fetchDog">Refresh</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3"></script>
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return {
+          imageUrl: '',
+          name: 'Rover',
+          breed: 'Unknown'
+        };
+      },
+      methods: {
+        async fetchDog() {
+          try {
+            const res = await fetch('https://dog.ceo/api/breeds/image/random');
+            const data = await res.json();
+            this.imageUrl = data.message;
+          } catch (e) {
+            console.error('Error fetching dog:', e);
+          }
+        }
+      },
+      mounted() {
+        this.fetchDog();
+      }
+    }).mount('#app');
+  </script>
 </body>
 </html>
