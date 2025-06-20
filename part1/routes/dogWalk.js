@@ -6,8 +6,8 @@ router.get('/dogs', async(req, res) => {
     const [rows] = await db.query(`
         SELECT d.name AS dog_name,
         d.size as size,
-        FROM Dogs d
-        u.username
+        u.username AS owner_username
+        FROM 
         JOIN
 
         `)
