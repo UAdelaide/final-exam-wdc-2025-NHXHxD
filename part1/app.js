@@ -87,7 +87,7 @@ app.get('/api/walkrequests/open', async (req, res) => {
   }
 });
 
-// Route 3: GET /api/walkers/summary
+// GET /api/walkers/summary
 app.get('/api/walkers/summary', async (req, res) => {
   try {
     const [rows] = await db.query(`
