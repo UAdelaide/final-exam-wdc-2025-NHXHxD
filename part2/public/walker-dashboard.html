@@ -59,7 +59,7 @@
           }
         }
 
-        // NEW: fetch session info
+        // fetch session info
         async function getCurrentUser() {
           const res = await fetch('/api/users/me');
           const { user } = await res.json();
@@ -75,7 +75,7 @@
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ walker_id: walkerId })
             });
-            loadWalks();
+            loadWalkRequests();
           } catch (err) {
             alert('Please log in first');
           }
