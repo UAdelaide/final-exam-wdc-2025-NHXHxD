@@ -42,7 +42,7 @@ const db      = require('../models/db');
 
 // POST /api/users/login
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;       // <-- use username here
+  const { username, password } = req.body;
 
   try {
     // fetch the user record by username
