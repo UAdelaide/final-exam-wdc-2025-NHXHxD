@@ -45,9 +45,9 @@ async function addData() {
       (4,3,'2025-06-11 18:00:00',30,'City Center Park','cancelled'),
       (5,5,'2025-06-12 10:15:00',20,'Suburban Greenway','open');
     `);
-    console.log('✅ Added test data');
+    console.log('Added test data');
   } catch (err) {
-    console.error('❌ Added failed:', err);
+    console.error('Fail to add data: ', err);
   }
 }
 
