@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ error: 'Registration failed' });
   }
 });
-// GET /me
+// GET /api/users/me
 router.get('/me', (req, res) => {
   if (!req.session.user) {
     return res.json({ user: null });
