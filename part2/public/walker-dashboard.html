@@ -93,5 +93,18 @@
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/api/users/logout', { method: 'POST' });
+        const { redirect } = await res.json();
+        window.location.href = redirect || '/';
+      } catch (err) {
+        console.error('Logout failed', err);
+        alert('Unable to log out.');
+      }
+    });
+  </script>
+
 </body>
 </html>
