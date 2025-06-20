@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // save minimal info in session
+    // save info in session
     req.session.user = {
       id:   user.user_id,
       name: user.username,
