@@ -59,4 +59,21 @@ router.post('/:id/apply', async (req, res) => {
   }
 });
 
+// GET /api/owners/:ownerId/dogs
+router.get('/owners/:ownerId/dogs', async (req, res) => {
+  const ownerId = req.params.ownerId;
+  try {
+    const [rows] = await db.query(
+      `SELECT dog_id, name
+         FROM Dogs
+        WHERE owner_id = ?`,
+      [ownerId]
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error('[/api/owners/:ownerId/dogs] error:', err);
+    res.status(500).json({ error: 'Failed to fetch owner’s dogs' });
+  }
+});
+
 module.exports = router;
