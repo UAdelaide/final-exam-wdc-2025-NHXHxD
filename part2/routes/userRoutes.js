@@ -36,21 +36,54 @@ router.get('/me', (req, res) => {
 });
 
 // POST /login
+const express = require('express');
+const router  = express.Router();
+const db      = require('../models/db');
+
+// POST /api/users/login
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const [[user]] = await db.query(
-    'SELECT user_id, username, role, password_hash FROM Users WHERE email = ?',
-    [email]
-  );
-  if (!user || password !== user.password_hash) {
-    return res.status(401).json({ error: 'Invalid credentials' });
+  const { username, password } = req.body;       // <-- use username here
+
+  try {
+    // fetch the user record by username
+    const [rows] = await db.query(
+      `SELECT user_id, username, role, password_hash
+         FROM Users
+        WHERE username = ?`,
+      [username]
+    );
+
+    if (rows.length === 0) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    const user = rows[0];
+
+    // check the password against password_hash
+    if (password !== user.password_hash) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // save minimal info in session
+    req.session.user = {
+      id:   user.user_id,
+      name: user.username,
+      role: user.role
+    };
+
+    // redirect based on role
+    const redirectTo = user.role === 'owner'
+      ? '/owner-dashboard.html'
+      : '/walker-dashboard.html';
+
+    res.json({ redirect: redirectTo });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Login failed' });
   }
-  req.session.user = { id: user.user_id, role: user.role };
-  const redirect = user.role === 'owner'
-    ? '/owner-dashboard.html'
-    : '/walker-dashboard.html';
-  res.json({ redirect });
 });
+
+module.exports = router;
 
 
 
