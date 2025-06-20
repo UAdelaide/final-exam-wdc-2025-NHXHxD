@@ -81,25 +81,43 @@
     </table>
     <p v-if="dogs.length === 0">No dogs found.</p>
   </div>
-  <script>
-    const { createApp } = Vue;
+<script>
+  const { createApp } = Vue;
 
-    createApp({
-      data() {
-        return {
-          dogs: []
-        };
-      },
-      async mounted() {
-        try {
-          const res = await fetch('/api/dogs');
-          this.dogs = await res.json();
-        } catch (e) {
-          console.error('Failed to load all dogs:', e);
-        }
+  createApp({
+    data() {
+      return {
+        dogs: []   // will end up holding { dog_id, dog_name, size, owner_id, photo }
+      };
+    },
+    async mounted() {
+      try {
+        // 1) grab the list of dogs
+        const res  = await fetch('/api/dogs');
+        const list = await res.json();
+
+        const withPhotos = await Promise.all(
+          list.map(async dog => {
+            try {
+              const r    = await fetch('https://dog.ceo/api/breeds/image/random');
+              const json = await r.json();
+              dog.photo = json.message;
+            } catch {
+              dog.photo = '';  // fallback if fetch fails
+            }
+            return dog;
+          })
+        );
+
+        // 3) finally expose to Vue so the template re-renders
+        this.dogs = withPhotos;
+      } catch (e) {
+        console.error('Failed to load dogs or photos:', e);
       }
-    }).mount('#dogsApp');
-  </script>
+    }
+  }).mount('#dogsApp');
+</script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
