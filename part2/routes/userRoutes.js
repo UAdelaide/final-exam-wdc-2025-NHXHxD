@@ -55,7 +55,7 @@ router.post('/login', async (req, res) => {
 
     // save minimal info in session
     req.session.user = {
-      id:   user.user_id,
+      id: user.user_id,
       name: user.username,
       role: user.role
     };
