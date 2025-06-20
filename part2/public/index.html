@@ -35,26 +35,26 @@
         };
       }
     }).mount('#app');
-  document.getElementById('loginForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const username = e.target.username.value;
-    const password = e.target.password.value;
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const username = e.target.username.value;
+      const password = e.target.password.value;
 
-    const res = await fetch('/api/users/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+      const res = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const result = await res.json();
+      if (!res.ok) {
+        alert(result.error || 'Login failed');
+        return;
+      }
+
+      // redirect to the dashboard the server specifies
+      window.location.href = result.redirect;
     });
-
-    const result = await res.json();
-    if (!res.ok) {
-      alert(result.error || 'Login failed');
-      return;
-    }
-
-    // on success, redirect to the dashboard the server specifies
-    window.location.href = result.redirect;
-  });
   </script>
 
 
