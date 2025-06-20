@@ -18,9 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-async function seedData() {
+async function addData() {
   try {
-    // use INSERT IGNORE to avoid duplicate-key errors
     await db.query(`
       INSERT IGNORE INTO Users (user_id, username, email, password_hash, role) VALUES
       (1,'alice123','alice@example.com','hashed123','owner'),
