@@ -27,7 +27,6 @@ app.use('/api/walks', walkRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api', apiRouter);
 
-const db = require('./models/db');
 
 
 // Export the app instead of listening here
