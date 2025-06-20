@@ -81,25 +81,39 @@
     </table>
     <p v-if="dogs.length === 0">No dogs found.</p>
   </div>
-  <script>
-    const { createApp } = Vue;
+<script>
+Vue.createApp({
+  data() {
+    return {
+      dogs: []  // will hold { dog_id, dog_name, size, owner_id, photo }
+    };
+  },
+  async mounted() {
+    try {
+      // 1) load the dog list from our API
+      const res = await fetch('/api/dogs');
+      const list = await res.json();
 
-    createApp({
-      data() {
-        return {
-          dogs: []
-        };
-      },
-      async mounted() {
-        try {
-          const res = await fetch('/api/dogs');
-          this.dogs = await res.json();
-        } catch (e) {
-          console.error('Failed to load all dogs:', e);
-        }
-      }
-    }).mount('#dogsApp');
-  </script>
+      // 2) for each dog, fetch a random photo and attach it:
+      await Promise.all(
+        list.map(async d => {
+          try {
+            const r = await fetch('https://dog.ceo/api/breeds/image/random');
+            const { message: url } = await r.json();
+            d.photo = url;
+          } catch {
+            d.photo = '';  // in case of failure
+          }
+        })
+      );
+
+      this.dogs = list;
+    } catch (e) {
+      console.error('Failed to load dogs or photos:', e);
+    }
+  }
+}).mount('#dogsApp');
+</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
