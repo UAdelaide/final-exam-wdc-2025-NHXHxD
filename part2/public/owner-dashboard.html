@@ -94,7 +94,7 @@
           // temporarily set as 3
           const ownerId =  1;
           try {
-            const res = await fetch(`/api/owners/${ownerId}/dogs`);
+            const res = await fetch(`/api/walks/owners/${ownerId}/dogs`);
             dogs.value = await res.json();
           } catch (e) {
             console.error('Failed to load dogs', e);
