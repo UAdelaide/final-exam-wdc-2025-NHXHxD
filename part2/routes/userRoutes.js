@@ -66,7 +66,7 @@ router.post('/logout', (req, res, next) => {
     // clear the cookie on the client
     res.clearCookie('connect.sid', { path: '/' });
     // send back a redirect instruction
-    res.json({ redirect: '/login.html' });
+    res.json({ redirect: '/index.html' });
   });
 });
 module.exports = router;
