@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
+const apiRouter = require('./routes/api');
 
 // Middleware
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use(session({
 
 app.use('/api/walks', walkRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api', apiRouter);
 
 const db = require('./models/db');
 
