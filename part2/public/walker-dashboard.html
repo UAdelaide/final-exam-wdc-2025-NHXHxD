@@ -59,22 +59,25 @@
           }
         }
 
+        // fetch session info
+        async function getCurrentUser() {
+          const res = await fetch('/api/users/me');
+          const { user } = await res.json();
+          if (!user) throw new Error('Not logged in');
+          return user;
+        }
+
         async function applyToWalk(requestId) {
           try {
-            const res = await fetch(`/api/walks/${requestId}/apply`, {
+            const { id: walkerId } = await getCurrentUser();
+            await fetch(`/api/walks/${requestId}/apply`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ walker_id: user })
+              body: JSON.stringify({ walker_id: walkerId })
             });
-            const result = await res.json();
-
-            if (!res.ok) throw new Error(result.error || 'Application failed');
-            message.value = result.message;
-            error.value = '';
-            await loadWalkRequests();
+            loadWalks();
           } catch (err) {
-            error.value = err.message;
-            message.value = '';
+            alert('Please log in first');
           }
         }
 
