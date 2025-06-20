@@ -100,7 +100,7 @@
             console.error('Failed to load dogs', e);
           }
         }
-        
+
         async function loadWalks() {
           try {
             const res = await fetch('/api/walks');
@@ -139,7 +139,7 @@
         onMounted(() => {
           loadWalks();
         });
-
+`
         return {
           form,
           walks,
