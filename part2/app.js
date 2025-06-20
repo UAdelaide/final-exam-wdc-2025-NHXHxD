@@ -21,8 +21,11 @@ app.use(session({
   cookie: { secure: false }
 }));
 
+
 app.use('/api/walks', walkRoutes);
 app.use('/api/users', userRoutes);
+
+const db = require('./models/db');
 
 // GET /api/dogs
 app.get('/api/dogs', async (req, res) => {
